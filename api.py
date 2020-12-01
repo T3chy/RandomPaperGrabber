@@ -17,5 +17,10 @@ def getNejm():
     for paper in papers:
         links.append(paper)
     return("https://www.nejm.org" + random.choice(links).strip("\""))
-journals = [getNature(), getNejm()]
-print(random.choice(journals))
+def getRandomPaper(filename):
+    journals = [getNature(), getNejm()]
+    paper = requests.get("https://sci-hub.st/" + random.choice(journals))
+    with open(filename, 'wb') as f:
+        f.write(paper.content)
+        f.close()
+getRandomPaper("gamer.pdf")
